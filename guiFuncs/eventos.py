@@ -90,7 +90,7 @@ def addEvent(refreshCallback):
         evento = E(subject,desc,person,fecha,horaInicio,horaFin)
         print(evento.toString()) # <-- solo para hacer debug!
         newAgenda.addEvent(evento)
-        refreshCallback()  # 🔁 Actualiza la lista en la ventana principal
+        refreshCallback()  # Actualiza la lista en la ventana principal
         window.destroy()
 
     # --- Display ----
