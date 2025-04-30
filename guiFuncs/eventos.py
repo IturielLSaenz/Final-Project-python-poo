@@ -38,7 +38,10 @@ def openEventos(refreshCallback):
 
     salir = Button(window, text="Salir",pady=40,command=window.destroy)
     salir.grid(columnspan=2,column=0, row=3,sticky="ew")
-
+# --- función para abrir una ventana que permite seleccionar un evento y eliminarlo
+def removeEvent():
+    pass
+# --- función para abrir ventana que permite añadir un nuevo evento
 def addEvent(refreshCallback):
     window = Toplevel()
     #window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predeterminado para cerrar.

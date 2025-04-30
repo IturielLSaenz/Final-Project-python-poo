@@ -14,7 +14,7 @@ from guiFuncs.global_agenda import newAgenda
 window = Tk()
 window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predeterminado para cerrar.
 window.resizable(False, False)
-window.geometry("600x700")
+window.geometry("740x700")
 window.title("GUI - Sistema Agenda - 554644")
 
 # --- Codigo principal para el menu ---
