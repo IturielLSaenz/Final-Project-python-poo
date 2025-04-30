@@ -10,6 +10,8 @@ from Time import Time as T
 from Event import Event as E
 from Agenda import Agenda as A
 
+from guiFuncs.contacts import listContactos
+
 def openEventos():
     window = Toplevel()
     window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predeterminado para cerrar.
@@ -44,6 +46,18 @@ def addEvent():
     window.columnconfigure(1,weight=1)
     window.columnconfigure(2,weight=1)
     window.columnconfigure(3,weight=1)
+
+    # --- special funcs for the GUI to work ---
+    def searchContact():
+        pass
+    def submit():
+        # --- declarar variables para crear los respectivos objetos ---
+        subject = asuntoEntry.get() # Asunto para el evento
+        day = diaEntry.get()
+        month = mesEntry.get()
+        year = annEntry.get()
+        # Reemplazar todas las variables, solo poner los .get() dentro de el constructor del objeto
+        window.destroy()
 
     # --- Display ----
     text = Label(window, text="-- Sistema Agenda - GUI - 554644 --", anchor="center").grid(columnspan=4, column=0, row=0,sticky="ew",pady=2)
@@ -91,4 +105,4 @@ def addEvent():
     descEntry = Entry(window)
     descEntry.grid(columnspan=3,column=1,row=7,sticky="ew")
     # --- botón para terminar ---
-    submit = Button(window,text="Enviar",pady=30).grid(columnspan=2,column=1,row=8,sticky="ew")
+    submit = Button(window,text="Enviar",pady=30,command=submit).grid(columnspan=2,column=1,row=8,sticky="ew")
