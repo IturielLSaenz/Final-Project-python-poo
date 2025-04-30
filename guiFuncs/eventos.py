@@ -8,13 +8,12 @@ import tkinter as tk
 from Date import Date as D
 from Time import Time as T
 from Event import Event as E
-from Agenda import Agenda as A
-
 from guiFuncs.contacts import listContactos
+from guiFuncs.global_agenda import newAgenda
 
 finalContact = [None] # lista de un solo elemento para guardar la selección
 
-def openEventos():
+def openEventos(refreshCallback):
     # ----- Funcion para abrir la ventana de eventos -----
     # Es la ventana principal de este apartado
     window = Toplevel()
@@ -32,7 +31,7 @@ def openEventos():
     # ---- Display ----
     text = Label(window, text="-- Sistema Agenda - GUI - 554644 --", anchor="center").grid(columnspan=2, column=0, row=0,sticky="ew",pady=2)
     text = Label(window,text="--- Lista de eventos (AGENDA): ---").grid(columnspan=2,column=0,row=1,sticky="ew",pady=10)
-    newEvent = Button(window, text="Añadir evento",pady=60,command=addEvent)
+    newEvent = Button(window, text="Añadir evento",pady=60,command=lambda: addEvent(refreshCallback))
     newEvent.grid(column=0, row=2,sticky="ew")
     notEvent = Button(window, text="Remover evento",pady=60)
     notEvent.grid(column=1, row=2,sticky="ew")
@@ -40,7 +39,7 @@ def openEventos():
     salir = Button(window, text="Salir",pady=40,command=window.destroy)
     salir.grid(columnspan=2,column=0, row=3,sticky="ew")
 
-def addEvent():
+def addEvent(refreshCallback):
     window = Toplevel()
     #window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predeterminado para cerrar.
     #window.resizable(False, False)
@@ -79,7 +78,7 @@ def addEvent():
         return finalContact
     
     # --- submit sirve para crear el evento y terminar el proceso de esta ventana ---
-    def submit():
+    def onSubmit():
         # --- declarar variables para crear los respectivos objetos ---
         subject = asuntoEntry.get() # Asunto para el evento
         desc = descEntry.get() # Descripcion del evento
@@ -89,7 +88,9 @@ def addEvent():
         horaFin = T(int(horaFnEntry.get()),int(minFnEntry.get()),int(secFnEntry.get())) # Crea la hora de fin
         # --- creando el evento ---
         evento = E(subject,desc,person,fecha,horaInicio,horaFin)
-        print(evento.toString())
+        print(evento.toString()) # <-- solo para hacer debug!
+        newAgenda.addEvent(evento)
+        refreshCallback()  # 🔁 Actualiza la lista en la ventana principal
         window.destroy()
 
     # --- Display ----
@@ -138,4 +139,4 @@ def addEvent():
     descEntry = Entry(window)
     descEntry.grid(columnspan=3,column=1,row=7,sticky="ew")
     # --- botón para terminar ---
-    submit = Button(window,text="Enviar",pady=30,command=submit).grid(columnspan=2,column=1,row=8,sticky="ew")
+    submit = Button(window,text="Enviar",pady=30,command=onSubmit).grid(columnspan=2,column=1,row=8,sticky="ew")

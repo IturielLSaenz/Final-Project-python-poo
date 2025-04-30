@@ -7,6 +7,9 @@ import Person as P
 import Event as E
 
 class Agenda():
+    def __init__(self):
+        self.__owner="User"
+        self.__events = []
     def __init__(self,owner=P.Person()):
         self.__owner=owner
         self.__events = [] #lista inicial de eventos
