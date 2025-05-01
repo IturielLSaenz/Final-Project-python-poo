@@ -13,41 +13,22 @@ from guiFuncs.global_agenda import newAgenda
 
 finalContact = [None] # lista de un solo elemento para guardar la selección
 
-def openEventos(refreshCallback):
-    # ----- Funcion para abrir la ventana de eventos -----
-    # Es la ventana principal de este apartado
-    window = Toplevel()
-    window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predeterminado para cerrar.
-    window.resizable(False, False)
-    window.geometry("540x340")
-    window.title("GUI - Sistema Agenda - 554644")
-
-    # --- Codigo principal para el menu ---
-    # Aqui se muestra todas las opciones principales, cada una se desgloza en una ventana aparte!
-    window.columnconfigure(0,weight=1)
-    window.columnconfigure(1,weight=1)
-
-
-    # ---- Display ----
-    text = Label(window, text="-- Sistema Agenda - GUI - 554644 --", anchor="center").grid(columnspan=2, column=0, row=0,sticky="ew",pady=2)
-    text = Label(window,text="--- Lista de eventos (AGENDA): ---").grid(columnspan=2,column=0,row=1,sticky="ew",pady=10)
-    newEvent = Button(window, text="Añadir evento",pady=60,command=lambda: addEvent(refreshCallback))
-    newEvent.grid(column=0, row=2,sticky="ew")
-    notEvent = Button(window, text="Remover evento",pady=60)
-    notEvent.grid(column=1, row=2,sticky="ew")
-
-    salir = Button(window, text="Salir",pady=40,command=window.destroy)
-    salir.grid(columnspan=2,column=0, row=3,sticky="ew")
 # --- función para abrir una ventana que permite seleccionar un evento y eliminarlo
 def removeEvent():
-    pass
+    window = Toplevel()
+    window.protocol("WM_DELETE_WINDOW",lambda:None)
+    window.resizable(False,False)
+    window.geometry("740x540")
+    window.title("Eliminar evento")
+
+    done = Button(window,text="Select",command=window.destroy).grid(column=0,row=0,sticky="ew")
 # --- función para abrir ventana que permite añadir un nuevo evento
 def addEvent(refreshCallback):
     window = Toplevel()
-    #window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predeterminado para cerrar.
-    #window.resizable(False, False)
+    window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predeterminado para cerrar.
+    window.resizable(False, False)
     window.geometry("740x540")
-    window.title("GUI - Sistema Agenda - 554644")
+    window.title("Agregar evento")
     window.columnconfigure(0,weight=1)
     window.columnconfigure(1,weight=1)
     window.columnconfigure(2,weight=1)
@@ -82,20 +63,23 @@ def addEvent(refreshCallback):
     
     # --- submit sirve para crear el evento y terminar el proceso de esta ventana ---
     def onSubmit():
-        # --- declarar variables para crear los respectivos objetos ---
-        subject = asuntoEntry.get() # Asunto para el evento
-        desc = descEntry.get() # Descripcion del evento
-        person = finalContact[0] # Persona del evento
-        fecha = D(int(annEntry.get()),int(mesEntry.get()),int(diaEntry.get())) # Crea la fecha para el evento
-        horaInicio = T(int(horaInEntry.get()),int(minInEntry.get()),int(secInEntry.get())) # Crea la hora de inicio
-        horaFin = T(int(horaFnEntry.get()),int(minFnEntry.get()),int(secFnEntry.get())) # Crea la hora de fin
-        # --- creando el evento ---
-        evento = E(subject,desc,person,fecha,horaInicio,horaFin)
-        print(evento.toString()) # <-- solo para hacer debug!
-        newAgenda.addEvent(evento)
-        refreshCallback()  # Actualiza la lista en la ventana principal
-        window.destroy()
-
+        try:
+                    # --- declarar variables para crear los respectivos objetos ---
+            subject = asuntoEntry.get() # Asunto para el evento
+            desc = descEntry.get() # Descripcion del evento
+            person = finalContact[0] # Persona del evento
+            fecha = D(int(annEntry.get()),int(mesEntry.get()),int(diaEntry.get())) # Crea la fecha para el evento
+            horaInicio = T(int(horaInEntry.get()),int(minInEntry.get()),int(secInEntry.get())) # Crea la hora de inicio
+            horaFin = T(int(horaFnEntry.get()),int(minFnEntry.get()),int(secFnEntry.get())) # Crea la hora de fin
+            # --- creando el evento ---
+            evento = E(subject,desc,person,fecha,horaInicio,horaFin)
+            print(evento.toString()) # <-- solo para hacer debug!
+            newAgenda.addEvent(evento)
+            refreshCallback()  # Actualiza la lista en la ventana principal
+            window.destroy()
+        except Exception:
+            window.destroy()
+            raise Exception
     # --- Display ----
     text = Label(window, text="-- Sistema Agenda - GUI - 554644 --", anchor="center").grid(columnspan=4, column=0, row=0,sticky="ew",pady=2)
     text = Label(window,text=" Añade un evento nuevo:").grid(columnspan=4,column=0,row=1,sticky="ew")

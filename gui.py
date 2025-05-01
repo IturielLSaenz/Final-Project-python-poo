@@ -8,7 +8,7 @@ from tkinter import *
 from tkinter import font
 import tkinter as tk
 from guiFuncs.contacts import openContacts
-from guiFuncs.eventos import openEventos
+from guiFuncs.eventos import addEvent
 from guiFuncs.global_agenda import newAgenda
 
 window = Tk()
@@ -16,6 +16,14 @@ window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predetermi
 window.resizable(False, False)
 window.geometry("740x700")
 window.title("GUI - Sistema Agenda - 554644")
+
+# --- Funciones necesarias para editar la lista de eventos: ---
+def selectEvent():
+    # Esta funcion recibe el elemento seleccionado o hecho "clic" en la lista 
+    # de la agenda, y abre los detalles del evento con dos botones:
+    # [Salir] [Eliminar evento] -> ambos botones destruyen la ventana.
+    pass
+
 
 # --- Codigo principal para el menu ---
 # Aqui se muestra todas las opciones principales, cada una se desgloza en una ventana aparte!
@@ -38,7 +46,7 @@ listaEventos.grid(column=0, row=3, columnspan=2, sticky="nsew", padx=10, pady=10
 contactos = Button(window, text="Contactos",pady=30,command=openContacts)
 contactos.grid(column=0, row=4,sticky="ew")
 
-eventosBtn = Button(window,text="Eventos",pady=30,command=lambda: openEventos(updateListaEventos))
+eventosBtn = Button(window,text="Añadir Evento",pady=30,command=lambda: addEvent(updateListaEventos))
 eventosBtn.grid(column=1,row=4,sticky="ew")
 
 salir = Button(window, text="SALIR", command=window.destroy,pady=30)
