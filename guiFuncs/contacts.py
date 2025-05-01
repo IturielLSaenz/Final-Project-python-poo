@@ -1,4 +1,8 @@
 # implementación GUI
+# Codigo ventanas para contactos
+# ---------
+# Autor: Ituriel Liebes Saenz
+# Tecnologias: Python, tkinter
 from tkinter import *
 from tkinter import font
 import tkinter as tk
@@ -6,7 +10,7 @@ from Person import Person as P
 # --- variables necesarias:
 global listContactos # Lista vacía que contiene los contactos.
 listContactos = []
-
+# --- visualizacion lista de contactos:
 def allContacts(master):
         new_window = Toplevel(master)
         new_window.geometry("540x700")
@@ -47,7 +51,7 @@ def allContacts(master):
         rContact = Button(new_window,text="Eliminar",pady=20,command=removeContact).grid(columnspan=2,column=0,row=6,sticky="ew")
         limpiar = Button(new_window,text="Limpiar",pady=20,command=clear).grid(columnspan=2,column=0,row=7,sticky="ew")
         salir = Button(new_window,text="Salir",command=new_window.destroy,pady=20).grid(column=0,row=8,columnspan=2,sticky="ew")
-
+# --- abrir la visualizacion de creacion de contactos:
 def openContacts():
     window = Toplevel()
     window.geometry("540x540")

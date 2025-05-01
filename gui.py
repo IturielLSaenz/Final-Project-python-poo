@@ -1,4 +1,4 @@
-# Codigo Backend para toda la GUI y procesos: 
+# Codigo ventana principal y sub procesos de la GUI.
 # Autor: Ituriel Liebes Saenz
 # ID: 554644
 # Tecnologias: Python, Tkinter
@@ -18,11 +18,28 @@ window.geometry("740x700")
 window.title("GUI - Sistema Agenda - 554644")
 
 # --- Funciones necesarias para editar la lista de eventos: ---
-def selectEvent():
+def selectEvent(event):
     # Esta funcion recibe el elemento seleccionado o hecho "clic" en la lista 
     # de la agenda, y abre los detalles del evento con dos botones:
     # [Salir] [Eliminar evento] -> ambos botones destruyen la ventana.
-    pass
+    # --- Funcion para abrir una ventana para visualizar el evento seleccionado: ---
+    def openSelected():
+        window = Toplevel()
+        window.geometry("360x360")
+        window.title("--- Visualización del evento ---")
+        
+        pass
+
+
+    selection_index = listaEventos.curselection()
+    if selection_index:
+        selected = listaEventos.get(selection_index[0])
+        openSelected()
+    return selected
+
+
+    
+
 
 
 # --- Codigo principal para el menu ---
@@ -36,12 +53,12 @@ text3 = Label(window, text="Bienvenido a tu agenda!", anchor="center").grid(colu
 def updateListaEventos():
     listaEventos.delete(0,END)
     for i,evento in enumerate(newAgenda.events): # Usar enumerate para regresar un iterable "numerado"
-        listaEventos.insert(END, f"{i + 1}. {evento.toString()}")
+        listaEventos.insert(END, f"{i + 1}. {evento.previewToString()}")
 
 listaEventos = Listbox(window,height=24,width=15,bg='grey',activestyle="dotbox",font="Helvetica",fg='white')
 
 listaEventos.grid(column=0, row=3, columnspan=2, sticky="nsew", padx=10, pady=10)
-
+listaEventos.bind("<<ListboxSelect>>",selectEvent)
 # --- Opciones para el menú principal ---
 contactos = Button(window, text="Contactos",pady=30,command=openContacts)
 contactos.grid(column=0, row=4,sticky="ew")

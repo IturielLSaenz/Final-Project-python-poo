@@ -64,7 +64,7 @@ def addEvent(refreshCallback):
     # --- submit sirve para crear el evento y terminar el proceso de esta ventana ---
     def onSubmit():
         try:
-                    # --- declarar variables para crear los respectivos objetos ---
+            # --- declarar variables para crear los respectivos objetos ---
             subject = asuntoEntry.get() # Asunto para el evento
             desc = descEntry.get() # Descripcion del evento
             person = finalContact[0] # Persona del evento

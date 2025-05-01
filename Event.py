@@ -27,7 +27,8 @@ class Event:
     @desc.setter
     def desc(self,desc:str):
         self.__desc=desc
-    
-    #metodo toString:
+    def previewToString(self): # regresa un string corto para una preview de los datos del evento!
+        return f"Asunto: {self.__subject} | Fecha: {self.__fecha.toString()}"
+    #metodo toString completo:
     def toString(self):
-        return f"[Asunto: {self.__subject} | Fecha: {self.__fecha.toString()} | Hora de inicio: {self.__hrInicio.toString()} | Hora de finalización: {self.__hrFin.toString()} | Descripción: {self.__desc}]"
+        return f"Asunto: {self.__subject} \nFecha: {self.__fecha.toString()} \nHora de inicio: {self.__hrInicio.toString()} \nHora de finalización: {self.__hrFin.toString()} \nDescripción: {self.__desc}"

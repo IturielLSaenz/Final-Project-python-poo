@@ -31,4 +31,4 @@ class Person:
     def email(self,email:str):
         self.__email=email
     def toString(self):
-        return f"Name: {self.__name} ; Tel: {self.__tel} ; Email: {self.__email}"
+        return f"Name: {self.__name} | Tel: {self.__tel} | Email: {self.__email}"
