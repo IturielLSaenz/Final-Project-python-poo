@@ -27,7 +27,7 @@ def addEvent(refreshCallback):
     window = Toplevel()
     window.protocol("WM_DELETE_WINDOW", lambda: None) # Eliminar el boton predeterminado para cerrar.
     window.resizable(False, False)
-    window.geometry("740x540")
+    window.geometry("740x340")
     window.title("Agregar evento")
     window.columnconfigure(0,weight=1)
     window.columnconfigure(1,weight=1)
@@ -50,7 +50,10 @@ def addEvent(refreshCallback):
                 print(f"Elemento seleccionado: {selected}")
         def storeSelected():
             if finalContact[0] is not None:
+                contactoEntry.config(state="normal")
+                contactoEntry.delete(0, END)
                 contactoEntry.insert(END,str(finalContact[0]))
+                contactoEntry.config(state="readonly")
             new_window.destroy()
         text = Label(new_window,text="Lista de contactos:").grid(columnspan=2,column=0,row=0,sticky="ew")
         contact_container = Listbox(new_window,height=24,width=15,bg='grey',activestyle="dotbox",font="Helvetica",fg='white')
@@ -86,14 +89,14 @@ def addEvent(refreshCallback):
     # --- formulario para rellenar y obtener un evento nuevo en la lista de eventos ---
     # --- Ingresar contacto ---
     text = Label(window,text="Contacto: ").grid(columnspan=1,column=0,row=2,sticky="ew")
-    contactoEntry = Entry(window,width=10)
+    contactoEntry = Entry(window,width=10,state="readonly")
     # contactoEntry.config(state="disabled")
     contactoEntry.grid(columnspan=2,column=1,row=2,sticky="ew")
     contactoBtn = Button(window,text="Buscar",command=searchContact).grid(columnspan=1,column=3,row=2,sticky="ew")
     # --- Ingresar asunto ---
     text = Label(window,text="Asunto: ").grid(columnspan=1,column=0,row=3,sticky="ew")
     asuntoEntry = Entry(window,width=10)
-    asuntoEntry.grid(columnspan=3,column=2,row=3,sticky="ew")
+    asuntoEntry.grid(columnspan=3,column=1,row=3,sticky="ew")
     # --- Ingresar fecha ---
     # fecha: [entry] [entry] [entry]
     text = Label(window,text="Fecha: ").grid(columnspan=1,column=0,row=4,sticky="ew")
@@ -126,4 +129,5 @@ def addEvent(refreshCallback):
     descEntry = Entry(window)
     descEntry.grid(columnspan=3,column=1,row=7,sticky="ew")
     # --- botón para terminar ---
-    submit = Button(window,text="Enviar",pady=30,command=onSubmit).grid(columnspan=2,column=1,row=8,sticky="ew")
+    submit = Button(window,text="Enviar",pady=30,command=onSubmit).grid(columnspan=2,column=0,row=8,sticky="ew")
+    salir = Button(window,text="SALIR",pady=30,command=window.destroy).grid(columnspan=2,column=2,row=8,sticky="ew")
